@@ -1,36 +1,43 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { useNavigate, useLocation } from "react-router-dom";
+import { toast } from 'react-toastify';
+import auth from '../firebase.init';
+import Loader from '../Shared/Loader';
 
 const Login = () => {
-    const handleLogin=e=>{        
+    const navigate = useNavigate();
+    const [signInWithEmailAndPassword,user,loading,error ] = useSignInWithEmailAndPassword(auth);
+    const location = useLocation();
+    const from = location?.state?.from?.pathname || '/';
+
+    useEffect(() => { 
+        if (user) {
+            toast.success('Logged In!')
+            navigate(from , {replace:true});
+        }
+        if (loading) {
+            <Loader />
+        }
+    }, [user, loading, navigate])
+    
+    const handleLogin = e => {
+        e.preventDefault();
         const email = e.target.email.value;
         const password = e.target.password.value;
-        console.log(email, password)
+        console.log(email, password);
+        signInWithEmailAndPassword(email, password);
     }
 
     return (
-        <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100 mx-auto my-5">
-            <div class="card-body">
-                <form onSubmit={()=>handleLogin()}>
-                    <div class="form-control">
-                        <label class="label">
-                            <span class="label-text">Email</span>
-                        </label>
-                        <input type="email" name='email' placeholder="email" class="input input-bordered" />
-                    </div>
-                    <div class="form-control">
-                        <label class="label">
-                            <span class="label-text">Password</span>
-                        </label>
-                        <input type="password" name='password' placeholder="password" class="input input-bordered" />
-                        {/* <label class="label">
-                        <a href="#" class="label-text-alt link link-hover">Forgot password?</a>
-                    </label> */}
-                    </div>
-                    <div class="form-control mt-6">
-                        <button class="btn btn-primary">Login</button>
-                    </div>
-                </form>
-            </div>
+        <div className='my-4'>
+            <form onSubmit={handleLogin} className='p-2 flex flex-col gap-3 lg:w-1/2 w-full mx-auto'>
+                <h1 className="text-3xl text-primary font-bold pb-2 pt-4">Please Login</h1>
+                <input type="email" name='email' placeholder='Your email' className='input input-bordered w-full' />
+                <input type="password" name='password' placeholder='Your password' className='input input-bordered w-full' />
+                {error && error}
+                <input type="submit" className='btn btn-primary' value="Log In" />
+            </form>
         </div>
     );
 };

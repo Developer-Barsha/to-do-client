@@ -1,11 +1,18 @@
+import { signOut } from 'firebase/auth';
 import React from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { useNavigate } from 'react-router-dom';
+import auth from '../../firebase.init';
 import CustomLink from '../../Shared/CustomLink';
 
 const Navbar = () => {
+    const navigate = useNavigate();
+    const [user] = useAuthState(auth);
+
     const menu = <>
         <CustomLink to={'/'}>Home</CustomLink>
         <CustomLink to={'/addTask'}>Add Task</CustomLink>
-        <CustomLink to={'/home'}>Home</CustomLink>
+        {user && <CustomLink to={'/tasks'}>Tasks</CustomLink>}
     </>;
 
     return (
@@ -15,7 +22,7 @@ const Navbar = () => {
                     <label tabIndex="0" className="btn btn-ghost lg:hidden">
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
                     </label>
-                    <ul tabIndex="0" className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+                    <ul tabIndex="0" className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 gap-5">
                         {menu}
                     </ul>
                 </div>
@@ -26,9 +33,12 @@ const Navbar = () => {
                     {menu}
                 </ul>
             </div>
-            <div className="navbar-end">
-                <a className="btn">Sign Up</a>
-                <a className="btn">Log In</a>
+            <div className="navbar-end gap-3">
+                <button onClick={()=>navigate('/signup')} className="btn">Sign Up</button>
+                {user ? 
+                <button onClick={()=>signOut(auth)} className="btn btn-primary">Sign Out</button> :
+                <button onClick={()=>navigate('/login')} className="btn">Log In</button>
+                }
             </div>
         </div>
     );

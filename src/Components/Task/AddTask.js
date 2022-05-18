@@ -1,19 +1,29 @@
 import React from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { toast } from 'react-toastify';
+import auth from '../../firebase.init';
 
 const AddTask = () => {
+    const [user] = useAuthState(auth);
+    console.log(user);
+
     const handleAddTask = e => {
         e.preventDefault();
         const name = e.target.name.value;
         const description = e.target.description.value;
-        const task = { name, description };
-        console.log(task);
+        const task = { name, email : user.email, description };
         fetch('http://localhost:5000/tasks', {
             method:'POST',
             headers:{'content-type':'application/json'},
             body:JSON.stringify(task)
         })
         .then(res=>res.json())
-        .then(data=>console.log(data))
+        .then(data=>{
+            if(data.insertedId){
+                toast.success('Your new task is added');
+                e.target.reset();
+            }
+        })
     }
     return (
         <div className='my-4'>

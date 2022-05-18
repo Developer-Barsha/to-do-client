@@ -4,7 +4,10 @@ import Navbar from "./Components/Navbar/Navbar";
 import AddTask from "./Components/Task/AddTask";
 import Login from "./Components/Login";
 import { ToastContainer} from 'react-toastify';
-// import RequireAuth from './Shared/RequireAuth';
+import Signup from "./Components/Signup";
+import Tasks from "./Components/Task/Tasks";
+import 'react-toastify/dist/ReactToastify.min.css';
+import RequireAuth from './Shared/RequireAuth';
 
 function App() {
   return (
@@ -14,9 +17,10 @@ function App() {
       <Routes>
         <Route path="/" element={<Home/>} />
         <Route path="/home" element={<Home/>} />
-        <Route path="/addTask" element={<AddTask/>} />
-        {/* <Route path="/addTask" element={<RequireAuth><AddTask/></RequireAuth>} /> */}
+        <Route path="/addTask" element={<RequireAuth><AddTask/></RequireAuth>} />
+        <Route path="/tasks" element={<RequireAuth><Tasks/></RequireAuth>} />
         <Route path="/login" element={<Login/>} />
+        <Route path="/signup" element={<Signup/>} />
         
       </Routes>    
     </div>

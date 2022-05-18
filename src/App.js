@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom";
+import './App.css'
 import Home from "./Components/Home/Home";
 import Navbar from "./Components/Navbar/Navbar";
 import AddTask from "./Components/Task/AddTask";
@@ -15,9 +16,9 @@ function App() {
       <ToastContainer/>
       <Navbar/>
       <Routes>
-        <Route path="/" element={<Home/>} />
-        <Route path="/home" element={<Home/>} />
-        <Route path="/addTask" element={<RequireAuth><AddTask/></RequireAuth>} />
+        <Route path="/" element={<RequireAuth><Home/></RequireAuth>} /> z
+        <Route path="/home" element={<RequireAuth><Home/></RequireAuth>} /> z
+        <Route path="/addTask" element={<RequireAuth><AddTask/></RequireAuth>} /> z
         <Route path="/tasks" element={<RequireAuth><Tasks/></RequireAuth>} />
         <Route path="/login" element={<Login/>} />
         <Route path="/signup" element={<Signup/>} />

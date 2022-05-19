@@ -5,23 +5,27 @@ const Task = ({ task }) => {
     const {name, description, _id} = task;
 
     const handleTextDecor = id => {
-        fetch(`http://localhost:5000/tasks/${id}`, {
+        fetch(`https://todo-app-barsha.herokuapp.com/tasks/${id}`, {
             method: 'PUT',
         })
         .then(res => res.json())
-        .then(data =>console.log(data))
+        .then(data =>{
+            console.log(data)
+            if(data.upsertedId){
+                toast.success('Congrats on completing!')
+            }
+        })
     };
     
     const handleDelete=(id)=>{
-        fetch(`http://localhost:5000/tasks/${id}`, {
+        fetch(`https://todo-app-barsha.herokuapp.com/tasks/${id}`, {
             method: 'DELETE'
         })
         .then(res => res.json())
         .then(data => {
             if(data.deletedId){
-                toast.success('Congrats on completing!')
+                toast.success('Task have been deleted!')
             }
-            console.log(data)
         })
     }
 

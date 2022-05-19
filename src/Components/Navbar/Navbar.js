@@ -13,6 +13,13 @@ const Navbar = () => {
         <CustomLink to={'/'}>Home</CustomLink>
         <CustomLink to={'/addTask'}>Add Task</CustomLink>
         {user && <CustomLink to={'/tasks'}>Tasks</CustomLink>}
+        {user ?
+            <>
+                <button onClick={() => navigate('/signup')} className="btn">Sign Up</button>
+                <button onClick={() => signOut(auth)} className="btn btn-primary">Sign Out</button>
+            </> :
+            <button onClick={() => navigate('/login')} className="btn">Log In</button>
+        }
     </>;
 
     return (
@@ -28,19 +35,16 @@ const Navbar = () => {
                 </div>
                 <a className="btn btn-ghost normal-case text-xl text-primary">Todo App</a>
             </div>
-            <div className="navbar-center hidden lg:flex">
-                <ul className="menu menu-horizontal p-0 gap-5">
+
+            {/* <div className="navbar-center hidden lg:flex"> */}
+
+            <div className="navbar-end gap-3 hidden lg:flex">
+                <ul className="menu menu-horizontal p-0 gap-5 items-center">
                     {menu}
                 </ul>
             </div>
-            <div className="navbar-end gap-3">
-                <button onClick={()=>navigate('/signup')} className="btn">Sign Up</button>
-                {user ? 
-                <button onClick={()=>signOut(auth)} className="btn btn-primary">Sign Out</button> :
-                <button onClick={()=>navigate('/login')} className="btn">Log In</button>
-                }
-            </div>
         </div>
+        // </div>
     );
 };
 

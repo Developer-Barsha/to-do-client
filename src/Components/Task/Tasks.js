@@ -7,7 +7,7 @@ const Tasks = () => {
     const [tasks, setTasks] = useState([]);
     const [user] = useAuthState(auth);
     useEffect(() => {
-        fetch(`http://localhost:5000/tasks/${user.email}`)
+        fetch(`https://todo-app-barsha.herokuapp.com/tasks/${user.email}`)
             .then(res => res.json())
             .then(data => {
                 setTasks(data);

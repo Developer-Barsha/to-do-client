@@ -22,13 +22,12 @@ const Login = () => {
         if (error) {
             toast.error(error.message)
         }
-    }, [user, loading, navigate, from])
+    }, [user, loading, navigate, from, error])
 
     const handleLogin = e => {
         e.preventDefault();
         const email = e.target.email.value;
         const password = e.target.password.value;
-        console.log(email, password);
         signInWithEmailAndPassword(email, password);
     }
 

@@ -10,7 +10,6 @@ const Task = ({ task }) => {
         })
         .then(res => res.json())
         .then(data =>{
-            console.log(data)
             if(data.upsertedId){
                 toast.success('Congrats on completing!')
             }

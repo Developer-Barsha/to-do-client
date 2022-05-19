@@ -10,8 +10,13 @@ const AddTask = () => {
         e.preventDefault();
         const name = e.target.name.value;
         const description = e.target.description.value;
+
+        if(name==='' || description===''){
+            return toast.error('Please enter valid info');
+        }
+
         const task = { name, email : user.email, description };
-        fetch('https://todo-app-barsha.herokuapp.com/tasks', {
+        fetch('https://todo-app-barsha.herokuapp.com/tasks/', {
             method:'POST',
             headers:{'content-type':'application/json'},
             body:JSON.stringify(task)
@@ -28,7 +33,12 @@ const AddTask = () => {
         <div className='my-4'>
             <form onSubmit={handleAddTask} className='p-2 flex flex-col gap-3 lg:w-1/2 w-full mx-auto'>
                 <h1 className="text-3xl text-primary font-bold pb-2 pt-6">Add a New task</h1>
+                
+                <label htmlFor='name'>Name</label>
                 <input type="text" name='name' placeholder='Task Name' className='input input-bordered w-full'/>
+
+                
+                <label htmlFor='description'>Description</label>
                 <input type="text" name='description' placeholder='Task Description' className='input input-bordered w-full'/>
                 <input type="submit" className='btn btn-primary' value="Add Task" />
             </form>

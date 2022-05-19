@@ -36,7 +36,7 @@ const Signup = () => {
             <form onSubmit={handleSignup} className='p-2 flex flex-col gap-3 lg:w-1/2 w-full mx-auto'>
                 <h1 className="text-3xl text-primary font-bold pb-2 pt-4">Create Account</h1>
 
-                <label htmlFor='email'>Password</label>
+                <label htmlFor='email'>Email</label>
                 <input type="email" name='email' placeholder='Your email' className='input input-bordered w-full' />
 
                 <label htmlFor='email'>Password</label>

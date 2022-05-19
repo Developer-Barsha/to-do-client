@@ -13,12 +13,11 @@ const Navbar = () => {
         <CustomLink to={'/'}>Home</CustomLink>
         <CustomLink to={'/addTask'}>Add Task</CustomLink>
         {user && <CustomLink to={'/tasks'}>Tasks</CustomLink>}
-        {user ?
-            <>
-                <button onClick={() => navigate('/signup')} className="btn">Sign Up</button>
-                <button onClick={() => signOut(auth)} className="btn btn-primary">Sign Out</button>
-            </> :
+        <button onClick={() => navigate('/signup')} className="btn">Sign Up</button>
+        {!user ?
             <button onClick={() => navigate('/login')} className="btn">Log In</button>
+            :
+            <button onClick={() => signOut(auth)} className="btn btn-primary">Sign Out</button>
         }
     </>;
 
